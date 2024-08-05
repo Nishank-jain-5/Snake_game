@@ -13,16 +13,18 @@ LEFT = 180
 
 
 class Snake:
+    
     def __init__(self):
         self.all_square = []
         self.create_snake()
         self.head = self.all_square[0]
 
+    # use to create a snake on screen
     def create_snake(self):
         for position in STARTING_COR:
             self.add_square_in_snake(position)
             
-
+    # add square in snake
     def add_square_in_snake(self, position):
         turtle = Turtle("square")
         turtle.penup()
@@ -30,33 +32,40 @@ class Snake:
         turtle.goto(position)
         self.all_square.append(turtle)
 
+    # extend snake while it hits food
     def extend_snake(self):
         self.add_square_in_snake(self.all_square[-1].position())
 
+    # move snake
     def move(self):
         for square in range(len(self.all_square)-1, 0, -1):
             # follow the path of first square
             newx = self.all_square[square-1].xcor()
             newy = self.all_square[square-1].ycor()
             self.all_square[square].goto(newx,newy)
-
+        
+        # move first square
         self.all_square[0].forward(MOVE_DISTANCE)
 
+    # move up on keypress
     def up(self):
         # change direction of first sqare
         if self.head.heading() != DOWN:
             self.head.setheading(UP)
 
+    # move down on keypress
     def down(self):
         # change direction of first sqare
         if self.head.heading() != UP:
             self.head.setheading(DOWN)
     
+    # move right on keypress
     def right(self):
         # change direction of first sqare
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
     
+    # move left on keypress
     def left(self):
         # change direction of first sqare
         if self.head.heading() != RIGHT:
@@ -78,4 +87,3 @@ class Snake:
         
         return False
         
-
